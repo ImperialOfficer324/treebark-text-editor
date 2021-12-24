@@ -1,0 +1,53 @@
+/*
+Retro theme for treebark, with boxy buttons
+*/
+
+@binding-set EditorTools
+{
+    bind "<Control>v" {"paste-clipboard" ()};
+    bind "<Control>c" {"copy-clipboard" ()};
+    bind "<Control>n" {"new-file" ()};
+    bind "<Control>o" {"open-file" ()};
+    bind "<Control>s" {"save-file" ()};
+    bind "<Control><Shift>s" {"save-file-as" ()};
+}
+
+grid{
+    background-color:#b8c0b8;
+}
+
+.toolbar-button{
+    transition:0ms;
+    border-radius: 0px;
+    border-color:#454345;
+    border-style: outset;
+    border-width: 3px;
+    background-image: -gtk-gradient (linear,left top, left bottom,from (#ced0ce),to (#707070));
+}
+
+.toolbar-button:hover{
+    transition: 0ms linear;
+}
+
+.toolbar-button:active{
+    transition: 0ms ease-in-out;
+    animation: none;
+    background-image: -gtk-gradient (linear,left top, left bottom,from (#808080),to (black));
+}
+
+.text-editor{
+    font-family:"Hack";
+    -gtk-key-bindings:EditorTools;
+    font-size: 16px;
+    caret-color:#f80000;
+}
+
+textview text{
+    background-color: #A8A8A8;
+    color: black;
+}
+
+textview text selection{
+    background-color:#f80000;
+    color: black;
+}

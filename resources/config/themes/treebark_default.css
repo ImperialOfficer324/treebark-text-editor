@@ -1,0 +1,71 @@
+/*
+
+*{
+    background-color: rgb(17, 41, 41);
+}
+.editor:selected{
+    font-size: 16px;
+    font-family: 'Hack';
+}
+.toolbar-button{
+    background-color:darkslategrey;
+    border-radius: 0px;
+}
+.toolbar-button:hover{
+    transition: 300ms ease-in-out;
+    background-color: rgb(4, 43, 43);
+}
+.toolbar-button:active{
+    transition: 400ms ease-in;
+    animation: 500ms ease-out;
+    background-color:rgb(17, 29, 29);
+} */
+
+@binding-set EditorTools
+{
+    bind "<Control>v" {"paste-clipboard" ()};
+    bind "<Control>c" {"copy-clipboard" ()};
+    bind "<Control>n" {"new-file" ()};
+    bind "<Control>o" {"open-file" ()};
+    bind "<Control>s" {"save-file" ()};
+    bind "<Control><Shift>s" {"save-file-as" ()};
+}
+
+grid{
+    background-color:rgb(19, 32, 32);
+}
+
+.toolbar-button{
+    border-radius: 3px;
+    border-color:black;
+    border-style: solid;
+    border-width: 1px;
+    background-image: -gtk-gradient (linear,left top, left bottom,from (rgb(30, 49, 49)),to (rgb(19, 32, 32)));
+}
+
+.toolbar-button:hover{
+    background-image: -gtk-gradient (linear,left top, left bottom,from (darkslategrey),to (rgb(28, 46, 46)));
+    transition: 250ms linear;
+}
+
+.toolbar-button:active{
+    transition: 300ms ease-in-out;
+    animation: none;
+    background-image: -gtk-gradient (linear,left top, left bottom,from (rgb(19, 32, 32)),to (black));
+}
+
+.text-editor{
+    font-family:"Hack";
+    -gtk-key-bindings:EditorTools;
+    font-size: 16px;
+}
+
+textview text{
+    background-color: rgb(19, 32, 32);
+    color: lightgrey;
+}
+
+textview text selection{
+    background-color:brown;
+    color: lightgrey;
+}

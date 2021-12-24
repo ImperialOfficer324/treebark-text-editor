@@ -1,0 +1,4 @@
+How to format the Treebark configuration file
+All lines not starting with a '#' character are comments.
+Lines starting with a '#' character define variables. Format:
+  #<variable-name>: <variable-value>
