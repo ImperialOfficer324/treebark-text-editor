@@ -2,10 +2,10 @@
 #include <string.h>
 #include <gtk/gtk.h>
 
-GtkWidget *window, *grid, *label, *cancel_button, *next_button, *swindow, *view, *agreement_button;
+GtkWidget *window, *grid, *label, *cancel_button, *next_button, *swindow, *view, *agreement_button, *radio1, *radio2, *box;
 GtkTextBuffer *buffer;
 
-int page;
+int page, install_method;
 
 void agreement_click(){
     if(gtk_widget_get_sensitive(GTK_WIDGET(next_button))==TRUE){
@@ -14,6 +14,15 @@ void agreement_click(){
     else{
         gtk_widget_set_sensitive(GTK_WIDGET(next_button), TRUE);
     }
+}
+
+void radio_toggled(){
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(radio1))){
+        install_method = 0;
+    }
+    else{
+        install_method = 1;
+    };
 }
 
 void load_page(){
@@ -91,7 +100,28 @@ void load_page(){
             gtk_widget_set_size_request(GTK_WIDGET(label), 600, 300);
             gtk_window_resize(GTK_WINDOW(window), 600, 300);
 
+            gtk_label_set_text(GTK_LABEL(label),"Treebark can be installed from a full download or a download of the installer only.\nIf you have downloaded just the installer, git is required on your system.\nPlease select the method of installation you will be using.");
+
+            radio1 = gtk_radio_button_new_with_label(NULL,"Install from predownloaded resources");
+            radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio1),"Install with Git");
+
+            box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
+            gtk_box_pack_start (GTK_BOX (box), radio1,TRUE,FALSE,0);
+            gtk_box_pack_start (GTK_BOX (box), radio2,TRUE,FALSE,0);
+
+            g_signal_connect(GTK_WIDGET(radio1),"toggled",G_CALLBACK(radio_toggled), NULL);
+            g_signal_connect(GTK_WIDGET(radio2),"toggled",G_CALLBACK(radio_toggled), NULL);
+
+            gtk_grid_attach (GTK_GRID(grid),box,0,5,5,1);
+
+            gtk_widget_show_all(window);
+
             break;
+        }
+        case 4{
+            if(install_method==1){
+                
+            }
         }
         default:
             gtk_label_set_text(GTK_LABEL(label),"Invalid Page. Please restart the installer");
