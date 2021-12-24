@@ -5,10 +5,10 @@ LIBS =
 
 C_FILES = main.c settings.c message.c
 OBJ_FILES = main.o settings.o message.o
-OUT_FILE = ../build/editor
-all: editor
+OUT_FILE = ../build/treebark
+all: treebark
 
-editor: $(OBJ_FILES)
+treebark: $(OBJ_FILES)
 		$(CC) $(CFLAGS) -o $(OUT_FILE) $(OBJ_FILES)
 
 main.o: main.c

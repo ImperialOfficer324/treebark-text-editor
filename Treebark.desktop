@@ -1,0 +1,19 @@
+[Desktop Entry]
+Comment[en_US]=
+Comment=
+Exec=treebark
+GenericName[en_US]=Simple GTK Text Editor
+GenericName=Fast and simple gtk text editor
+Icon=system-run
+MimeType=
+Name[en_US]=Treebark Text Editor
+Name=Treebark Text Editor
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

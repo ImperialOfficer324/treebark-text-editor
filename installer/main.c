@@ -2,7 +2,7 @@
 #include <string.h>
 #include <gtk/gtk.h>
 
-GtkWidget *window, *grid, *label, *cancel_button, *next_button, *swindow, *view, *agreement_button, *radio1, *radio2, *box;
+GtkWidget *window, *grid, *label, *cancel_button, *next_button, *swindow, *view, *agreement_button, *radio1, *radio2, *box, *button_addtopath, *button_addtoapps, *button_addtodesktop, *path_entry, *install_button;
 GtkTextBuffer *buffer;
 
 int page, install_method;
@@ -24,6 +24,33 @@ void radio_toggled(){
         install_method = 1;
     };
 }
+
+void install(){
+    /*
+    installation steps:
+    copy "resources/config/*" to ~/.config/treebark/
+    optional: copy "build/treebark" to path
+    optional: copy "Treebark Text Editor" to  /usr/share/applications/
+    optional: copy "Treebark Text Editor" to ~/Desktop
+    */
+    system("mkdir ~/.config/treebark");
+    system("cp -r resources/config/* ~/.config/treebark/");
+
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button_addtopath))){
+        char * cmd[255];
+        strcpy((char *)cmd,"cp build/treebark ");
+        strcat((char *)cmd,(const char *)gtk_entry_get_text(GTK_ENTRY(path_entry)));
+        system((const char *)cmd);
+    }
+
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button_addtoapps))){
+        system("cp Treebark.desktop /usr/share/applications/");
+    }
+
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button_addtodesktop))){
+        system("cp Treebark.desktop ~/Desktop");
+    }
+};
 
 void load_page(){
     switch(page){
@@ -97,6 +124,9 @@ void load_page(){
             gtk_grid_remove_row(GTK_GRID(grid),5);
             gtk_grid_remove_row(GTK_GRID(grid),5);
             gtk_grid_remove_row(GTK_GRID(grid),5);
+            gtk_grid_insert_row(GTK_GRID(grid),5);
+            gtk_grid_insert_row(GTK_GRID(grid),5);
+            gtk_grid_insert_row(GTK_GRID(grid),5);
             gtk_widget_set_size_request(GTK_WIDGET(label), 600, 300);
             gtk_window_resize(GTK_WINDOW(window), 600, 300);
 
@@ -118,10 +148,43 @@ void load_page(){
 
             break;
         }
-        case 4{
+        case 4:{
+            gtk_grid_remove_row(GTK_GRID(grid),5);
+            gtk_grid_remove_row(GTK_GRID(grid),5);
+            gtk_grid_insert_row(GTK_GRID(grid),5);
+            gtk_grid_insert_row(GTK_GRID(grid),5);
+            gtk_widget_set_size_request(GTK_WIDGET(label), 600, 300);
+            gtk_window_resize(GTK_WINDOW(window), 600, 300);
+            gtk_widget_set_sensitive(GTK_WIDGET(next_button), FALSE);
+            gtk_widget_set_sensitive(GTK_WIDGET(install_button), TRUE);
             if(install_method==1){
-                
+                system("git clone https://github.com/ImperialOfficer324/treebark-text-editor.git");
+                system("cd treebark-text-editor");
             }
+            
+            /*
+                installation steps:
+                copy "resources/config/*" to ~/.config/treebark/
+                optional: copy "build/editor" to path
+                optional: copy "Treebark Text Editor" to  /usr/share/applications/
+                optional: copy "Treebark Text Editor" to ~/Desktop
+            */
+            gtk_label_set_text(GTK_LABEL(label),"Please select your installation preferences:");
+            button_addtopath = gtk_check_button_new_with_label("Add to Path:");
+            gtk_grid_attach(GTK_GRID(grid), button_addtopath, 0, 6, 1, 1);
+
+            path_entry = gtk_entry_new ();
+            gtk_grid_attach(GTK_GRID(grid), path_entry,1,6,2,1);
+            gtk_entry_set_text(GTK_ENTRY(path_entry),"~/.local/bin/");
+
+            button_addtoapps = gtk_check_button_new_with_label("Add to Applications");
+            gtk_grid_attach(GTK_GRID(grid), button_addtoapps, 0, 7, 5, 1);
+
+            button_addtodesktop = gtk_check_button_new_with_label("Add to Desktop");
+            gtk_grid_attach(GTK_GRID(grid), button_addtodesktop, 0, 8, 5, 1);
+
+            gtk_widget_show_all(window);
+            break;
         }
         default:
             gtk_label_set_text(GTK_LABEL(label),"Invalid Page. Please restart the installer");
@@ -158,6 +221,11 @@ static void activate (GtkApplication *app, gpointer user_data){
     next_button = gtk_button_new_with_label("Next>");
     gtk_grid_attach(GTK_GRID(grid),GTK_WIDGET(next_button),3,10,1,1);
     g_signal_connect(next_button,"clicked",G_CALLBACK(next_page),NULL);
+
+    install_button = gtk_button_new_with_label("Install");
+    gtk_grid_attach(GTK_GRID(grid),GTK_WIDGET(install_button),4,10,1,1);
+    g_signal_connect(install_button,"clicked",G_CALLBACK(install),NULL);
+    gtk_widget_set_sensitive(GTK_WIDGET(install_button), FALSE);
 
     gtk_widget_show_all(window);
     gtk_main();
