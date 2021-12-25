@@ -165,6 +165,10 @@ void load_page(){
                 system("git clone https://github.com/ImperialOfficer324/treebark-text-editor.git");
                 //system("cd treebark-text-editor");
                 system("mv treebark-text-editor/* ./");
+                system("mkdir build");
+                system("cd source && make");
+                system("cd ../installer && make");
+                system("cd ../");
             }
             
             /*
