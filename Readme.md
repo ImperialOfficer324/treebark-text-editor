@@ -61,3 +61,41 @@ Each of the methods is detailed below.
 7. From the new directory (Treebark), run ./build/installer
 8. Click through the installer. When prompted to select installation method, select Install from predownloaded resources
 9. Finish Installation
+
+## The Configuration File
+Your treebark configuration file controls how the application functions. It is located at ```~/.config/treebark/config.txt```. You can write any plain text you want in this file, as long as no lines start with a ```#``` character. Such lines define variables. The syntax for setting variables is:
+```#<variable-name>:<variable-value>```. For example, to set the theme to the treebark retro style you could add the line ```#theme: treebark_retro```. As the application develops, more and more variables will become available.
+
+## Changing Theme
+In Treebark, you can easily change the style css file that the application reads from. This file includes styling for the application and keybinding configuration. It is not recommended to edit any of the default themes shipped with Treebark, but rather make copies and set the theme variable(see above) to the name of your new file. Below are two different examples of ways to edit the theme.
+
+**Editing Keybindings:** Let's say that, for some reason, you wanted to save your file with Control+F instead of Control+s. This is very easy. Open a theme file, and find(or create) a block that looks like this:
+  ```css
+  @binding-set EditorTools
+  {
+    bind "<Control>v" {"paste-clipboard" ()};
+    bind "<Control>c" {"copy-clipboard" ()};
+    bind "<Control>n" {"new-file" ()};
+    bind "<Control>o" {"open-file" ()};
+    bind "<Control>s" {"save-file" ()};
+    bind "<Control><Shift>s" {"save-file-as" ()};
+  }
+  ...
+  
+  .text-editor{
+  ...
+    -gtk-key-bindings:EditorTools;
+  ...
+  }
+  ```
+  Change the line ```bind "<Control>s" {"save-file" ()};``` to ```bind "<Control>f" {"save-file" ()};```. Save the file and run Treebark. When you press Control and f, your file should save.
+  
+**Rounded Buttons:** A useful attribute in css is ```border-radius```, which allows you to change how rounded objects are. Open your style file, and find this block:
+```css
+
+.toolbar-button{
+    border-radius: 3px;
+    ...
+    }
+```
+Change 3px to a larger number, such as 10px. Save the file and launch Treebark. The buttons on the top toolbar should be rounded.
