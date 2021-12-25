@@ -7,6 +7,8 @@ GtkTextBuffer *buffer;
 
 int page, install_method;
 
+void next_page();
+
 void agreement_click(){
     if(gtk_widget_get_sensitive(GTK_WIDGET(next_button))==TRUE){
         gtk_widget_set_sensitive(GTK_WIDGET(next_button), FALSE);
@@ -50,6 +52,8 @@ void install(){
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button_addtodesktop))){
         system("cp Treebark.desktop ~/Desktop");
     }
+
+    next_page();
 };
 
 void load_page(){
@@ -159,7 +163,8 @@ void load_page(){
             gtk_widget_set_sensitive(GTK_WIDGET(install_button), TRUE);
             if(install_method==1){
                 system("git clone https://github.com/ImperialOfficer324/treebark-text-editor.git");
-                system("cd treebark-text-editor");
+                //system("cd treebark-text-editor");
+                system("mv treebark-text-editor/* ./");
             }
             
             /*
@@ -184,6 +189,22 @@ void load_page(){
             gtk_grid_attach(GTK_GRID(grid), button_addtodesktop, 0, 8, 5, 1);
 
             gtk_widget_show_all(window);
+            break;
+        }
+        case 5:
+        {
+            gtk_label_set_text(GTK_LABEL(label),"Treebark has been installed on your system. You can now exit this installer");
+            gtk_grid_remove_row(GTK_GRID(grid),5);
+            gtk_grid_remove_row(GTK_GRID(grid),5);
+            gtk_grid_remove_row(GTK_GRID(grid),5);
+            gtk_grid_remove_row(GTK_GRID(grid),5);
+            gtk_grid_insert_row(GTK_GRID(grid),5);
+            gtk_grid_insert_row(GTK_GRID(grid),5);
+            gtk_grid_insert_row(GTK_GRID(grid),5);
+            gtk_widget_set_sensitive(GTK_WIDGET(next_button), FALSE);
+            gtk_widget_set_sensitive(GTK_WIDGET(install_button), TRUE);
+            gtk_button_set_label(GTK_BUTTON(install_button),"Exit");
+            g_signal_connect(GTK_WIDGET(install_button),"clicked",G_CALLBACK(gtk_main_quit),NULL);
             break;
         }
         default:
