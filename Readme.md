@@ -14,6 +14,10 @@ Treebark is a fast and simple text editor written in c. It uses the gtk3 toolkit
 + Write and read text files
 + Completely Customize your editor with CSS
 
+## Treebark In Action
+*Note:* All screenshots are taken with the default GTK theme applied and ePapyrus icons.
+![Treebark in Action](img/screengrab.png)
+
 ## Installation
 Treebark can be installed in 3 ways.
 1. Install with Git
