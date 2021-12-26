@@ -99,3 +99,12 @@ In Treebark, you can easily change the style css file that the application reads
     }
 ```
 Change 3px to a larger number, such as 10px. Save the file and launch Treebark. The buttons on the top toolbar should be rounded.
+
+## Planned Changes
+
+The following is an incomplete, ever changing list of the planned changes to Treebark.
+
+1. About Page
+2. Tabs (open multiple files)
+3. Syntax Highlighting
+4. Menus
