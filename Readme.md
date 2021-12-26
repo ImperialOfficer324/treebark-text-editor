@@ -1,5 +1,7 @@
 Treebark Text Editor
 ======================
+
+![Treebark Logo](icon.png)
 + Version: 1.0.1
 + Author: ImperialOfficer324
 + Created: 2021
@@ -99,3 +101,15 @@ In Treebark, you can easily change the style css file that the application reads
     }
 ```
 Change 3px to a larger number, such as 10px. Save the file and launch Treebark. The buttons on the top toolbar should be rounded.
+
+## Reporting Issues
+If you have any problems with the installer, application, configuration, please add an issue explaining exactly what you were doing at the time of the problem, and provide screenshots if possible.
+
+## Planned Changes
+
+The following is an incomplete, ever changing list of the planned changes to Treebark.
+
+1. About Page
+2. Tabs (open multiple files)
+3. Syntax Highlighting
+4. Menus
