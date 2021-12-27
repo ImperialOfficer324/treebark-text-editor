@@ -2,7 +2,7 @@ Treebark Text Editor
 ======================
 
 ![Treebark Logo](icon.png)
-+ Version: 1.0.1
++ Version: 1.0.2
 + Author: ImperialOfficer324
 + Created: 2021
 
